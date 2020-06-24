@@ -3,7 +3,7 @@ export default class GotService {
 		this._apiBase = "https://www.anapioficeandfire.com/api";
 	}
 
-	async getResouce(url) {
+	async getResource(url) {
 		const res = await fetch(`${this._apiBase}${url}`);
 		if (!res.ok) {
 			throw new Error(`Could not fetch ${url}, status: ${res.status}`);
@@ -13,15 +13,15 @@ export default class GotService {
 	};
 
 	getAllCharacters() {
-		return this.getResouce("/characters?page=5&pageSize=10");
+		return this.getResource("/characters?page=5&pageSize=10");
 	}
 
 	getCharacter(id) {
-		return this.getResouce(`/characters/${id}`);
+		return this.getResource(`/characters/${id}`);
 	}
 
 	getAllBooks() {
-		return this.getResouce(`/books/`);
+		return this.getResource(`/books/`);
 	}
 
 	getBook(id) {
@@ -36,13 +36,3 @@ export default class GotService {
 		return this.getResource(`/houses/${id}/`);
 	}
 }
-
-/* const got = new GotService();
-
-got.getAllCharacters()
-	.then(res => {
-		res.forEach(item => console.log(item.name));
-	});
-
-got.getCharacter(130)
-	.then(res => console.log(res)) */

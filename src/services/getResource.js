@@ -1,4 +1,4 @@
-import GotService from "./gotServices";
+// import GotService from "./gotServices";
 
 export default function getResource(characterId = 1, bookId = 1, houseId = 1) {
 

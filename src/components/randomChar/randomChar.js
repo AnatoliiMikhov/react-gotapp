@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 // import "./randomChar.css";
 import styled from "styled-components";
+import gotService from "../../services/gotServices";
 
 const RandomCharacterBlock = styled.div`
 	background-color: #fff;
@@ -45,33 +46,57 @@ const Span = styled.span`
 `;
 
 export default class RandomChar extends Component {
-	render() {
-		return (
-			<RandomCharacterBlock className="random-block rounded">
-				<RandomCharacterTitle>Random Character: John</RandomCharacterTitle>
 
-				<RandomCharacterList>
-					<RandomCharacterListItem>
-						<Span>Gender </Span>
-						<Span>male</Span>
-					</RandomCharacterListItem>
+    constructor() {
+        super();
+        this.updateCharacter();
+    }
 
-					<RandomCharacterListItem>
-						<Span>Born </Span>
-						<Span>11.03.1039</Span>
-					</RandomCharacterListItem>
+    gotService = new gotService();
 
-					<RandomCharacterListItem>
-						<Span>Died </Span>
-						<Span>13.09.1089</Span>
-					</RandomCharacterListItem>
+    state = {
+        character: {}
+    }
 
-					<RandomCharacterListItem>
-						<Span>Culture </Span>
-						<Span>Anarchy</Span>
-					</RandomCharacterListItem>
-				</RandomCharacterList>
-			</RandomCharacterBlock>
-		);
-	}
+    onCharacterLoaded = (character) => {
+        this.setState({character})
+    }
+
+    updateCharacter() {
+        const id = Math.floor(Math.random() * 100 + 25);
+        this.gotService.getCharacter(id)
+            .then(this.onCharacterLoaded)
+    }
+
+    render() {
+        const {character: {name, gender, born, died, culture}} = this.state;
+
+        return (
+            <RandomCharacterBlock>
+                <RandomCharacterTitle>Random Character: {name}</RandomCharacterTitle>
+
+                <RandomCharacterList>
+                    <RandomCharacterListItem>
+                        <Span>Gender </Span>
+                        <Span>{gender}</Span>
+                    </RandomCharacterListItem>
+
+                    <RandomCharacterListItem>
+                        <Span>Born </Span>
+                        <Span>{born}</Span>
+                    </RandomCharacterListItem>
+
+                    <RandomCharacterListItem>
+                        <Span>Died </Span>
+                        <Span>{died}</Span>
+                    </RandomCharacterListItem>
+
+                    <RandomCharacterListItem>
+                        <Span>Culture </Span>
+                        <Span>{culture}</Span>
+                    </RandomCharacterListItem>
+                </RandomCharacterList>
+            </RandomCharacterBlock>
+        );
+    }
 }

@@ -2,8 +2,10 @@ import React, {Component} from "react";
 // import "./randomChar.css";
 import styled from "styled-components";
 import gotService from "../../services/gotServices";
+import Spinner from "../spinner";
 
 const RandomCharacterBlock = styled.div`
+    position: relative;
 	background-color: #fff;
 	padding: 25px 25px 15px 25px;
 	margin-bottom: 40px;
@@ -55,11 +57,15 @@ export default class RandomChar extends Component {
     gotService = new gotService();
 
     state = {
-        character: {}
+        character: {},
+        loading: true
     }
 
     onCharacterLoaded = (character) => {
-        this.setState({character})
+        this.setState({
+            character,
+            loading: false
+        })
     }
 
     updateCharacter() {
@@ -69,9 +75,22 @@ export default class RandomChar extends Component {
     }
 
     render() {
-        const {character: {name, gender, born, died, culture}} = this.state;
+        const {character, loading} = this.state;
+
+        const content = loading ? <SpinnerBlock /> : <View character={character} />;
 
         return (
+            <RandomCharacterBlock>
+                {content}
+            </RandomCharacterBlock>
+        );
+    }
+}
+
+const View = ({character}) => {
+    const {name, gender, born, died, culture} = character;
+    return (
+        <>
             <RandomCharacterBlock>
                 <RandomCharacterTitle>Random Character: {name}</RandomCharacterTitle>
 
@@ -97,6 +116,34 @@ export default class RandomChar extends Component {
                     </RandomCharacterListItem>
                 </RandomCharacterList>
             </RandomCharacterBlock>
-        );
-    }
+        </>
+    )
+}
+
+const SpinnerBlock = () => {
+    return (
+        <>
+            <RandomCharacterBlock>
+                <RandomCharacterTitle>Random Character: </RandomCharacterTitle>
+
+                <RandomCharacterList>
+                    <RandomCharacterListItem>
+                        <Span>Gender </Span>
+                    </RandomCharacterListItem>
+
+                    <RandomCharacterListItem>
+                        <Span>Born </Span>
+                    </RandomCharacterListItem>
+                    <RandomCharacterListItem>
+                        <Span>Died </Span>
+                    </RandomCharacterListItem>
+
+                    <RandomCharacterListItem>
+                        <Span>Culture </Span>
+                    </RandomCharacterListItem>
+                </RandomCharacterList>
+                <Spinner />
+            </RandomCharacterBlock>
+        </>
+    );
 }

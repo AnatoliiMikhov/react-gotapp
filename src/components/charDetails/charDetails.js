@@ -39,6 +39,12 @@ const CharDetailsListItem = styled.li`
 		border-bottom-width: 0;
     }
 `;
+
+const Span = styled.span`
+	&:first-child {
+		font-weight: bold;
+	}
+`;
 export default class CharDetails extends Component {
     render() {
         return (
@@ -48,23 +54,23 @@ export default class CharDetails extends Component {
                 <CharDetailsList>
 
                     <CharDetailsListItem>
-                        <span className="term">Gender</span>
-                        <span>male</span>
+                        <Span>Gender</Span>
+                        <Span>male</Span>
                     </CharDetailsListItem>
 
                     <CharDetailsListItem>
-                        <span className="term">Born</span>
-                        <span>1783</span>
+                        <Span>Born</Span>
+                        <Span>1783</Span>
                     </CharDetailsListItem>
 
                     <CharDetailsListItem>
-                        <span className="term">Died</span>
-                        <span>1820</span>
+                        <Span>Died</Span>
+                        <Span>1820</Span>
                     </CharDetailsListItem>
 
                     <CharDetailsListItem>
-                        <span className="term">Culture</span>
-                        <span>First</span>
+                        <Span>Culture</Span>
+                        <Span>First</Span>
                     </CharDetailsListItem>
 
                 </CharDetailsList>

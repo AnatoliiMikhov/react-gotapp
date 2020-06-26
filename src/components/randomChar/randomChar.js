@@ -26,7 +26,8 @@ const RandomCharacterListItem = styled.li`
 	padding: 0.75rem 1.25rem;
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.125);
-	border-width: 0 0 1px;
+    border-width: 0 0 1px;
+    cursor: pointer;
 	&:first-child {
 		border-top-left-radius: inherit;
 		border-top-right-radius: inherit;

@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import styled from "styled-components";
 import gotService from "../../services/gotServices";
 import Spinner from "../spinner";
+import ErrorMessage from "../errorMessage";
 
 const RandomCharacterBlock = styled.div`
     position: relative;
@@ -59,29 +60,43 @@ export default class RandomChar extends Component {
 
     state = {
         character: {},
-        loading: true
+        loading: true,
+        error: false
     }
 
     onCharacterLoaded = (character) => {
         this.setState({
             character,
-            loading: false
-        })
+            loading: false,
+        });
+    }
+
+    onError = (err) => {
+        this.setState({
+            error: true,
+            loading: false,
+        });
     }
 
     updateCharacter() {
         const id = Math.floor(Math.random() * 100 + 25);
+        // const id = 42424242; // error emulation
         this.gotService.getCharacter(id)
             .then(this.onCharacterLoaded)
+            .catch(this.onError);
     }
 
     render() {
-        const {character, loading} = this.state;
+        const {character, loading, error} = this.state;
 
-        const content = loading ? <SpinnerBlock /> : <View character={character} />;
+        const errorMessage = error ? <ErrorMessage /> : null;
+        const spinner = loading ? <SpinnerBlock /> : null;
+        const content = !(loading || error) ? <View character={character} /> : null;
 
         return (
             <RandomCharacterBlock>
+                {errorMessage}
+                {spinner}
                 {content}
             </RandomCharacterBlock>
         );

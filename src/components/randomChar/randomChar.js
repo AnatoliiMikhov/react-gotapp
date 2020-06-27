@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import styled from "styled-components";
 import gotService from "../../services/gotServices";
 import Spinner from "../spinner";
-import ErrorMessage from "../errorMessage";
+import ErrorMessage from "../error";
 
 const RandomCharacterBlock = styled.div`
     position: relative;

@@ -10,7 +10,7 @@ export default class GotService {
 		}
 
 		return await res.json();
-	};
+	}
 
 	async getAllCharacters() {
 		const res = await this.getResource("/characters?page=5&pageSize=10");
@@ -22,30 +22,42 @@ export default class GotService {
 		return this._transformCharacter(character);
 	}
 
-	getAllBooks() {
-		return this.getResource(`/books/`);
+	async getAllBooks() {
+		const res = await this.getResource(`/books/`);
+		return res.map(this._transformBook);
 	}
 
-	getBook(id) {
-		return this.getResource(`/books/${id}/`);
+	async getBook(id) {
+		const book = await this.getResource(`/books/${id}`);
+		return this._transformBook(book);
 	}
 
-	getAllHouses() {
-		return this.getResource(`/houses/`);
+	async getAllHouses() {
+		const res = await this.getResource(`/books/`);
+		return res.map(this._transformBook);
 	}
 
-	getHouse(id) {
-		return this.getResource(`/houses/${id}/`);
+	async getHouse(id) {
+		const house = await this.getResource(`/houses/${id}/`);
+		return this._transformBook(house);
+	}
+
+	isSet(data) {
+		if (data) {
+			return data;
+		} else {
+			return "no data :(";
+		}
 	}
 
 	_transformCharacter(character) {
 		return {
-			name: character.name,
-			gender: character.gender,
-			born: character.born,
-			died: character.died,
-			culture: character.culture
-		}
+			name: this.isSet(character.name),
+			gender: this.isSet(character.gender),
+			born: this.isSet(character.born),
+			died: this.isSet(character.died),
+			culture: this.isSet(character.culture),
+		};
 	}
 
 	_transformHouse(house) {
@@ -55,8 +67,8 @@ export default class GotService {
 			worlds: house.worlds,
 			titles: house.titles,
 			overload: house.overload,
-			ancestralWeapons: house.ancestralWeapons
-		}
+			ancestralWeapons: house.ancestralWeapons,
+		};
 	}
 
 	_transformBook(book) {
@@ -64,7 +76,7 @@ export default class GotService {
 			name: book.name,
 			numberOfPages: book.numberOfPages,
 			publiser: book.publiser,
-			released: book.released
-		}
+			released: book.released,
+		};
 	}
 }

@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { Col, Row, Container } from "reactstrap";
+import React, {Component} from "react";
+import {Col, Row, Container} from "reactstrap";
 import styled from "styled-components";
 import Header from "../header";
 import RandomChar from "../randomChar";
-import ItemList from "../itemList";
-import PersonDetails from "../PersonDetails";
+import CharacterPage from "../characterPage";
 import ErrorMessage from "../error";
 
 const ButtonToggle = styled.button`
@@ -26,13 +25,11 @@ export default class App extends Component {
 	state = {
 		showRandomChar: true,
 		error: false,
-		selectedChar: 130
 	};
 
-	componentDidCatch(){
-		console.log("error");
+	componentDidCatch() {
 		this.setState({
-			error: true
+			error: true,
 		});
 	}
 
@@ -44,12 +41,6 @@ export default class App extends Component {
 		});
 	};
 
-	onCharSelected = (id) => {
-		this.setState({
-			selectedChar: id
-		});
-	}
-
 	render() {
 		if (this.state.error) {
 			return <ErrorMessage />;
@@ -57,29 +48,22 @@ export default class App extends Component {
 
 		const character = this.state.showRandomChar ? <RandomChar /> : null;
 		return (
-			<>
+			<React.Fragment>
 				<Container>
 					<Header />
 				</Container>
 				<Container>
 					<Row>
-						<Col lg={{ size: 6, offset: 0 }}>
+						<Col lg={{size: 6, offset: 0}}>
 							{character}
 							<ButtonToggle onClick={this.toggleRandomChar}>
 								Toggle random character
 							</ButtonToggle>
 						</Col>
 					</Row>
-					<Row>
-						<Col md="6">
-							<ItemList onCharSelected={this.onCharSelected} />
-						</Col>
-						<Col md="6">
-							<PersonDetails characterId={this.state.selectedChar}/>
-						</Col>
-					</Row>
+					<CharacterPage />
 				</Container>
-			</>
+			</React.Fragment>
 		);
 	}
 }

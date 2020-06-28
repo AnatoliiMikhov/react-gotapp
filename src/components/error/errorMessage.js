@@ -12,6 +12,7 @@ const ErrorText = styled.span`
 	align-items: center;
 	padding: 10px 0;
 	font-weight: bold;
+	color: orangered;
 `;
 
 const ErrorMessage = () => {

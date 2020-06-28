@@ -27,12 +27,6 @@ export default class App extends Component {
 		error: false,
 	};
 
-	componentDidCatch() {
-		this.setState({
-			error: true,
-		});
-	}
-
 	toggleRandomChar = () => {
 		this.setState((state) => {
 			return {

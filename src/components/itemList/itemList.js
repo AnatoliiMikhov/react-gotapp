@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import gotService from "../../services/gotServices";
 import Spinner from "../spinner";
-// import './itemList.css';
+import ErrorMessage from "../error";
 import styled from "styled-components";
 
 const List = styled.ul`
 	display: flex;
 	flex-direction: column;
 	padding-left: 0;
-    margin-bottom: 50px;
+	margin-bottom: 50px;
 	border-radius: 0.25rem;
 `;
 
@@ -33,44 +33,63 @@ export default class ItemList extends Component {
 
     state = {
         characterList: null,
+        error: false,
     };
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
+        this.gotService
+            .getAllCharacters()
             .then((characterList) => {
                 this.setState({
                     characterList,
+                    error: false,
                 });
+            })
+            .catch(() => {
+                this.onError();
             });
     }
 
+    componentDidCatch() {
+        this.setState({
+            charList: null,
+            error: true,
+        });
+    }
+
+    onError(status) {
+        this.setState({
+            charList: null,
+            error: true,
+        });
+    }
+
     renderItems(arr) {
-        return arr.map((item, i) => {
+        return arr.map((item) => {
+            const {id, name} = item;
             return (
                 <ListItem
-                    key={i}
-                    onClick={() => this.props.onCharSelected(41 + i)}
-                >
-                    {item.name}
+                    key={id}
+                    onClick={() => this.props.onCharSelected(id)}>
+                    {name}
                 </ListItem>
-            )
-        })
+            );
+        });
     }
 
     render() {
+        const {characterList, error} = this.state;
 
-        const {characterList} = this.state;
+        if(error){
+            return <ErrorMessage/>
+        }
 
         if (!characterList) {
-            return <Spinner />
+            return <Spinner />;
         }
 
         const items = this.renderItems(characterList);
 
-        return (
-            <List>
-                {items}
-            </List>
-        );
+        return <List>{items}</List>;
     }
 }

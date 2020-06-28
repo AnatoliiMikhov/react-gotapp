@@ -59,7 +59,7 @@ export default class RandomChar extends Component {
         error: false
     }
 
-/* ------------------------- методы жизненого цикла ------------------------- */
+    /* ------------------------- методы жизненого цикла ------------------------- */
 
     componentDidMount() {
         this.updateCharacter();
@@ -70,7 +70,7 @@ export default class RandomChar extends Component {
         clearInterval(this.timerId);
     }
 
-/* --------------------------------- methods -------------------------------- */
+    /* --------------------------------- methods -------------------------------- */
 
     onCharacterLoaded = (character) => {
         this.setState({
@@ -84,6 +84,7 @@ export default class RandomChar extends Component {
             error: true,
             loading: false,
         });
+        clearInterval(this.timerId);
     }
 
     updateCharacter = () => {
@@ -93,11 +94,9 @@ export default class RandomChar extends Component {
             .catch(this.onError);
     }
 
-/* --------------------------------- Render --------------------------------- */
+    /* --------------------------------- Render --------------------------------- */
 
     render() {
-        console.log("render");
-
         const {character, loading, error} = this.state;
 
         const errorMessage = error ? <ErrorMessage /> : null;

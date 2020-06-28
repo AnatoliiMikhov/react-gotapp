@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import gotService from "../../services/gotServices";
-
-// import './PersonDetails.css';
+import ErrorMessage from "../error";
+import Spinner from "../spinner";
 import styled from "styled-components";
 
 const PersonDetailsBlock = styled.div`
+	position: relative;
 	background-color: #fff;
 	padding: 25px 25px 15px 25px;
 	margin-bottom: 40px;
@@ -58,17 +59,32 @@ export default class PersonDetails extends Component {
 	gotService = new gotService();
 
 	state = {
-		character: null
+		character: null,
+		loading: true,
+		error: false
 	}
 
 	componentDidMount() {
 		this.updateCharacter();
 	}
 
-	componentDidUpdate(prevProps){
-		if(this.props.characterId !== prevProps.characterId){
+	componentDidUpdate(prevProps) {
+		if (this.props.characterId !== prevProps.characterId) {
 			this.updateCharacter();
 		}
+	}
+
+	onCharDetailLoaded = (character) => {
+		this.setState({
+			character,
+			loading: false
+		});
+	}
+
+	componentDidCatch() {
+		this.setState({
+			error: true,
+		});
 	}
 
 	updateCharacter() {
@@ -76,21 +92,66 @@ export default class PersonDetails extends Component {
 
 		if (!characterId) {
 			return;
-			;
 		}
+
+		this.setState({
+			loading: true
+		});
+
 		this.gotService.getCharacter(characterId)
-			.then((character) => {
-				this.setState({character})
-			});
+			.then(this.onCharDetailLoaded)
+			.catch(() => this.onError());
+	}
+
+	onError() {
+		this.setState({
+			character: null,
+			error: true
+		})
 	}
 
 	render() {
 
-		if (!this.state.character) {
+		if (!this.state.character && this.state.error) {
+			return <ErrorMessage />
+		} else if (!this.state.character) {
 			return <Error>Please select a character</Error>
 		}
 
 		const {name, gender, born, died, culture} = this.state.character;
+
+		if (this.state.loading) {
+			return (
+				<PersonDetailsBlock>
+					<PersonDetailsTitle>{name}</PersonDetailsTitle>
+
+					<PersonDetailsList>
+
+						<PersonDetailsListItem>
+							<Span>Gender</Span>
+							<Span>{gender}</Span>
+						</PersonDetailsListItem>
+
+						<PersonDetailsListItem>
+							<Span>Born</Span>
+							<Span>{born}</Span>
+						</PersonDetailsListItem>
+
+						<PersonDetailsListItem>
+							<Span>Died</Span>
+							<Span>{died}</Span>
+						</PersonDetailsListItem>
+
+						<PersonDetailsListItem>
+							<Span>Culture</Span>
+							<Span>{culture}</Span>
+						</PersonDetailsListItem>
+
+					</PersonDetailsList>
+					<Spinner />
+				</PersonDetailsBlock>
+			);
+		}
 
 		return (
 			<PersonDetailsBlock>

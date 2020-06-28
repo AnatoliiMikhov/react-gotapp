@@ -1,6 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+const Header = () => {
+    return (
+        <HeaderBlock>
+            <HeaderTitle>
+                <a href="#">
+                Game of Thrones DB
+                </a>
+            </HeaderTitle>
+            <HeaderLinks>
+                <li>
+                    <a href="#">Characters</a>
+                </li>
+                <li>
+                    <a href="#">Houses</a>
+                </li>
+                <li>
+                    <a href="#">Books</a>
+                </li>
+            </HeaderLinks>
+        </HeaderBlock>
+    );
+};
+
+export default Header;
+
+/* ---------------------------- styled-component ---------------------------- */
+
 const HeaderBlock = styled.div`
     display: flex;
     justify-content: space-between;
@@ -25,28 +53,3 @@ const HeaderLinks = styled.ul`
         font-size: 18px;
     }
 `;
-
-const Header = () => {
-    return (
-        <HeaderBlock>
-            <HeaderTitle>
-                <a href="#">
-                Game of Thrones DB
-                </a>
-            </HeaderTitle>
-            <HeaderLinks>
-                <li>
-                    <a href="#">Characters</a>
-                </li>
-                <li>
-                    <a href="#">Houses</a>
-                </li>
-                <li>
-                    <a href="#">Books</a>   
-                </li>
-            </HeaderLinks>
-        </HeaderBlock>
-    );
-};
-
-export default Header;

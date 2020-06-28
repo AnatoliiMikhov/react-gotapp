@@ -1,6 +1,20 @@
 import React from "react";
 import styled, {keyframes} from "styled-components";
 
+const Spinner = () => {
+	return (
+		<WrapperSpinnerBlock>
+			<InnerSpinnerBlock>
+				<div></div>
+			</InnerSpinnerBlock>
+		</WrapperSpinnerBlock>
+	);
+};
+
+export default Spinner;
+
+/* ---------------------------- styled-component ---------------------------- */
+
 const spinnerAnimation = keyframes`
 	0% {transform: rotate(0deg)}
 	50% {transform: rotate(180deg)}
@@ -38,15 +52,3 @@ const InnerSpinnerBlock = styled.div`
 		box-sizing: content-box;
 	}
 `;
-
-const Spinner = () => {
-	return (
-		<WrapperSpinnerBlock>
-			<InnerSpinnerBlock>
-				<div></div>
-			</InnerSpinnerBlock>
-		</WrapperSpinnerBlock>
-	);
-};
-
-export default Spinner;

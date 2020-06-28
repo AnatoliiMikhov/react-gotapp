@@ -5,50 +5,6 @@ import gotService from "../../services/gotServices";
 import Spinner from "../spinner";
 import ErrorMessage from "../error";
 
-const RandomCharacterBlock = styled.div`
-    position: relative;
-	background-color: #fff;
-	padding: 25px 25px 15px 25px;
-	margin-bottom: 40px;
-`;
-
-const RandomCharacterList = styled.ul`
-	display: flex;
-	flex-direction: column;
-	padding-left: 0;
-	margin-bottom: 0;
-	border-radius: 0;
-`;
-
-const RandomCharacterListItem = styled.li`
-	display: flex;
-	justify-content: space-between;
-	position: relative;
-	padding: 0.75rem 1.25rem;
-	background-color: #fff;
-	border: 1px solid rgba(0, 0, 0, 0.125);
-    border-width: 0 0 1px;
-    cursor: pointer;
-	&:first-child {
-		border-top-left-radius: inherit;
-		border-top-right-radius: inherit;
-	}
-	&:last-child {
-		border-bottom-width: 0;
-	}
-`;
-
-const RandomCharacterTitle = styled.h4`
-	margin-bottom: 20px;
-	text-align: center;
-`;
-
-const Span = styled.span`
-	&:first-child {
-		font-weight: bold;
-	}
-`;
-
 export default class RandomChar extends Component {
 
     gotService = new gotService();
@@ -176,3 +132,49 @@ const SpinnerBlock = () => {
         </>
     );
 }
+
+/* ---------------------------- styled-component ---------------------------- */
+
+const RandomCharacterBlock = styled.div`
+    position: relative;
+	background-color: #fff;
+	padding: 25px 25px 15px 25px;
+	margin-bottom: 40px;
+`;
+
+const RandomCharacterList = styled.ul`
+	display: flex;
+	flex-direction: column;
+	padding-left: 0;
+	margin-bottom: 0;
+	border-radius: 0;
+`;
+
+const RandomCharacterListItem = styled.li`
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	padding: 0.75rem 1.25rem;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+    border-width: 0 0 1px;
+    cursor: pointer;
+	&:first-child {
+		border-top-left-radius: inherit;
+		border-top-right-radius: inherit;
+	}
+	&:last-child {
+		border-bottom-width: 0;
+	}
+`;
+
+const RandomCharacterTitle = styled.h4`
+	margin-bottom: 20px;
+	text-align: center;
+`;
+
+const Span = styled.span`
+	&:first-child {
+		font-weight: bold;
+	}
+`;

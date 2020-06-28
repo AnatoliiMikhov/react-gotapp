@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import gotService from "../../services/gotServices";
+
 // import './PersonDetails.css';
 import styled from "styled-components";
 
@@ -45,32 +47,75 @@ const Span = styled.span`
 		font-weight: bold;
 	}
 `;
+
+const Error = styled.span`
+	color: #fff;
+    text-align: center;
+    font-size: 26px;
+`;
 export default class PersonDetails extends Component {
+
+	gotService = new gotService();
+
+	state = {
+		character: null
+	}
+
+	componentDidMount() {
+		this.updateCharacter();
+	}
+
+	componentDidUpdate(prevProps){
+		if(this.props.characterId !== prevProps.characterId){
+			this.updateCharacter();
+		}
+	}
+
+	updateCharacter() {
+		const {characterId} = this.props;
+
+		if (!characterId) {
+			return;
+			;
+		}
+		this.gotService.getCharacter(characterId)
+			.then((character) => {
+				this.setState({character})
+			});
+	}
+
 	render() {
+
+		if (!this.state.character) {
+			return <Error>Please select a character</Error>
+		}
+
+		const {name, gender, born, died, culture} = this.state.character;
+
 		return (
 			<PersonDetailsBlock>
-				<PersonDetailsTitle>John Snow</PersonDetailsTitle>
+				<PersonDetailsTitle>{name}</PersonDetailsTitle>
 
 				<PersonDetailsList>
 
 					<PersonDetailsListItem>
 						<Span>Gender</Span>
-						<Span>male</Span>
+						<Span>{gender}</Span>
 					</PersonDetailsListItem>
 
 					<PersonDetailsListItem>
 						<Span>Born</Span>
-						<Span>1783</Span>
+						<Span>{born}</Span>
 					</PersonDetailsListItem>
 
 					<PersonDetailsListItem>
 						<Span>Died</Span>
-						<Span>1820</Span>
+						<Span>{died}</Span>
 					</PersonDetailsListItem>
 
 					<PersonDetailsListItem>
 						<Span>Culture</Span>
-						<Span>First</Span>
+						<Span>{culture}</Span>
 					</PersonDetailsListItem>
 
 				</PersonDetailsList>

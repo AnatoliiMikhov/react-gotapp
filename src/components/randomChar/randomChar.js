@@ -51,11 +51,6 @@ const Span = styled.span`
 
 export default class RandomChar extends Component {
 
-    constructor() {
-        super();
-        this.updateCharacter();
-    }
-
     gotService = new gotService();
 
     state = {
@@ -63,6 +58,19 @@ export default class RandomChar extends Component {
         loading: true,
         error: false
     }
+
+/* ------------------------- методы жизненого цикла ------------------------- */
+
+    componentDidMount() {
+        this.updateCharacter();
+        this.timerId = setInterval(this.updateCharacter, 2000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    }
+
+/* --------------------------------- methods -------------------------------- */
 
     onCharacterLoaded = (character) => {
         this.setState({
@@ -78,15 +86,18 @@ export default class RandomChar extends Component {
         });
     }
 
-    updateCharacter() {
+    updateCharacter = () => {
         const id = Math.floor(Math.random() * 100 + 25);
-        // const id = 42424242; // error emulation
         this.gotService.getCharacter(id)
             .then(this.onCharacterLoaded)
             .catch(this.onError);
     }
 
+/* --------------------------------- Render --------------------------------- */
+
     render() {
+        console.log("render");
+
         const {character, loading, error} = this.state;
 
         const errorMessage = error ? <ErrorMessage /> : null;
@@ -102,6 +113,9 @@ export default class RandomChar extends Component {
         );
     }
 }
+
+
+/* ---------------------------------- View ---------------------------------- */
 
 const View = ({character}) => {
     const {name, gender, born, died, culture} = character;

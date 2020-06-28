@@ -20,7 +20,7 @@ const ErrorMessage = () => {
 		<>
 			{/* <ErrorImage src={process.env.PUBLIC_URL + "/img/error.jpg"} alt="error"></ErrorImage> */}
 			<ErrorImage src={img} />
-			<ErrorText>Something goes wrong</ErrorText>
+			<ErrorText>Oops...!</ErrorText>
 		</>
 	);
 };

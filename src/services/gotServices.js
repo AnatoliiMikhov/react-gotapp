@@ -50,33 +50,41 @@ export default class GotService {
 		}
 	}
 
+	_extractId = (item) => {
+		const idRegExp = /\/([0-9]*)$/;
+		return item.url.match(idRegExp)[1];
+	}
+
 	_transformCharacter = (character) => {
 		return {
+			id: this._extractId(character),
 			name: this.isSet(character.name),
-            gender: this.isSet(character.gender),
-            born: this.isSet(character.born),
-            died: this.isSet(character.died),
-            culture: this.isSet(character.culture)
+			gender: this.isSet(character.gender),
+			born: this.isSet(character.born),
+			died: this.isSet(character.died),
+			culture: this.isSet(character.culture)
 		};
 	}
 
 	_transformHouse = (house) => {
 		return {
-			name: house.name,
-			region: house.region,
-			worlds: house.worlds,
-			titles: house.titles,
-			overload: house.overload,
-			ancestralWeapons: house.ancestralWeapons,
+			id: this._extractId(house),
+			name: this.isSet(house.name),
+			region: this.isSet(house.region),
+			worlds: this.isSet(house.worlds),
+			titles: this.isSet(house.titles),
+			overload: this.isSet(house.overload),
+			ancestralWeapons: this.isSet(house.ancestralWeapons),
 		};
 	}
 
 	_transformBook = (book) => {
 		return {
-			name: book.name,
-			numberOfPages: book.numberOfPages,
-			publiser: book.publiser,
-			released: book.released,
+			id: this._extractId(book),
+			name: this.isSet(book.name),
+			numberOfPages: this.isSet(book.numberOfPages),
+			publiser: this.isSet(book.publiser),
+			released: this.isSet(book.released),
 		};
 	}
 }

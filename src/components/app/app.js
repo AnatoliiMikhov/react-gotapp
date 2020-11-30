@@ -27,7 +27,7 @@ export default class App extends Component {
 
 		const character = this.state.showRandomChar ? <RandomChar /> : null;
 		return (
-			<React.Fragment>
+			<React.StrictMode>
 				<Container>
 					<Header />
 				</Container>
@@ -42,7 +42,7 @@ export default class App extends Component {
 					</Row>
 					<CharacterPage />
 				</Container>
-			</React.Fragment>
+			</React.StrictMode>
 		);
 	}
 }
@@ -57,7 +57,7 @@ const ButtonToggle = styled.button`
 	color: #fff;
 	margin-bottom: 40px;
 	outline: none;
-	box-shadow: 0px 0px 30px rgba(256, 256, 256, 0.1);
+	box-shadow: 0px 0px 30px rgba(256, 256, 256, 0.5);
 	cursor: pointer;
 	&:focus {
 		outline: none;

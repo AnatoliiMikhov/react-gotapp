@@ -48,7 +48,7 @@ const InnerSpinnerBlock = styled.div`
 		left: 28%;
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
-		box-shadow: 0 2px 0 0 #16b6df;
+		box-shadow: 0 2px 0 0 rgb(22, 183, 223);
 		box-sizing: content-box;
 	}
 `;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import gotService from "../../services/gotServices";
 import ErrorMessage from "../error";
 import Spinner from "../spinner";
@@ -39,7 +40,8 @@ export default class PersonDetails extends Component {
 
 	updateCharacter() {
 		const {characterId} = this.props;
-
+		console.log(typeof characterId);
+		console.log(characterId);
 		if (!characterId) {
 			return;
 		}
@@ -187,3 +189,13 @@ const Error = styled.span`
 		text-align: center;
 		font-size: 26px;
 `;
+
+
+/* ------------------------------- Check Types ------------------------------ */
+
+PersonDetails.propTypes = {
+	characterId: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	])
+};

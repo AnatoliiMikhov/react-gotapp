@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 import styled from "styled-components";
 import gotService from "../../services/gotServices";
 import Spinner from "../spinner";
@@ -177,3 +178,8 @@ const Span = styled.span`
 		font-weight: bold;
 	}
 `;
+
+/* ------------------------------- check props ------------------------------ */
+View.propTypes = {
+	character: PropTypes.object
+}

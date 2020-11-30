@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 import gotService from "../../services/gotServices";
 import Spinner from "../spinner";
 import ErrorMessage from "../error";
@@ -21,8 +22,8 @@ export default class ItemList extends Component {
 					error: false,
 				});
 			})
-			.catch(() => {
-				this.onError();
+			.catch((e) => {
+				this.onError(e);
 			});
 	}
 
@@ -96,3 +97,9 @@ const ListItem = styled.li`
 		border-bottom-left-radius: inherit;
 	}
 `;
+
+
+/* ------------------------------- Check Type ------------------------------- */
+ItemList.propTypes = {
+	onCharSelected: PropTypes.func
+}

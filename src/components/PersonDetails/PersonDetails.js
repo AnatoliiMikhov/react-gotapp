@@ -40,8 +40,6 @@ export default class PersonDetails extends Component {
 
 	updateCharacter() {
 		const {characterId} = this.props;
-		console.log(typeof characterId);
-		console.log(characterId);
 		if (!characterId) {
 			return;
 		}

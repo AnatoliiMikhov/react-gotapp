@@ -6,136 +6,136 @@ import ErrorMessage from "../error";
 
 export default class RandomChar extends Component {
 
-    gotService = new gotService();
+	gotService = new gotService();
 
-    state = {
-        character: {},
-        loading: true,
-        error: false
-    }
+	state = {
+		character: {},
+		loading: true,
+		error: false
+	}
 
-    /* ------------------------- методы жизненого цикла ------------------------- */
+	/* ------------------------- методы жизненого цикла ------------------------- */
 
-    componentDidMount() {
-        this.updateCharacter();
-        this.timerId = setInterval(this.updateCharacter, 2000);
-    }
+	componentDidMount() {
+		this.updateCharacter();
+		this.timerId = setInterval(this.updateCharacter, 2000);
+	}
 
-    componentWillUnmount() {
-        clearInterval(this.timerId);
-    }
+	componentWillUnmount() {
+		clearInterval(this.timerId);
+	}
 
-    /* --------------------------------- methods -------------------------------- */
+	/* --------------------------------- methods -------------------------------- */
 
-    onCharacterLoaded = (character) => {
-        this.setState({
-            character,
-            loading: false,
-        });
-    }
+	onCharacterLoaded = (character) => {
+		this.setState({
+			character,
+			loading: false,
+		});
+	}
 
-    onError = (err) => {
-        this.setState({
-            error: true,
-            loading: false,
-        });
-        clearInterval(this.timerId);
-    }
+	onError = (err) => {
+		this.setState({
+			error: true,
+			loading: false,
+		});
+		clearInterval(this.timerId);
+	}
 
-    updateCharacter = () => {
-        const id = Math.floor(Math.random() * 100 + 25);
-        this.gotService.getCharacter(id)
-            .then(this.onCharacterLoaded)
-            .catch(() => this.onError());
-    }
+	updateCharacter = () => {
+		const id = Math.floor(Math.random() * 100 + 25);
+		this.gotService.getCharacter(id)
+			.then(this.onCharacterLoaded)
+			.catch(() => this.onError());
+	}
 
-    /* --------------------------------- Render --------------------------------- */
+	/* --------------------------------- Render --------------------------------- */
 
-    render() {
-        const {character, loading, error} = this.state;
+	render() {
+		const {character, loading, error} = this.state;
 
-        const errorMessage = error ? <ErrorMessage /> : null;
-        const spinner = loading ? <SpinnerBlock /> : null;
-        const content = !(loading || error) ? <View character={character} /> : null;
+		const errorMessage = error ? <ErrorMessage /> : null;
+		const spinner = loading ? <SpinnerBlock /> : null;
+		const content = !(loading || error) ? <View character={character} /> : null;
 
-        return (
-            <RandomCharacterBlock>
-                {errorMessage}
-                {spinner}
-                {content}
-            </RandomCharacterBlock>
-        );
-    }
+		return (
+			<RandomCharacterBlock>
+				{errorMessage}
+				{spinner}
+				{content}
+			</RandomCharacterBlock>
+		);
+	}
 }
 
 
 /* ---------------------------------- View ---------------------------------- */
 
 const View = ({character}) => {
-    const {name, gender, born, died, culture} = character;
-    return (
-        <>
-            <RandomCharacterBlock>
-                <RandomCharacterTitle>Random Character: {name}</RandomCharacterTitle>
+	const {name, gender, born, died, culture} = character;
+	return (
+		<>
+			<RandomCharacterBlock>
+				<RandomCharacterTitle>Random Character: {name}</RandomCharacterTitle>
 
-                <RandomCharacterList>
-                    <RandomCharacterListItem>
-                        <Span>Gender </Span>
-                        <Span>{gender}</Span>
-                    </RandomCharacterListItem>
+				<RandomCharacterList>
+					<RandomCharacterListItem>
+						<Span>Gender </Span>
+						<Span>{gender}</Span>
+					</RandomCharacterListItem>
 
-                    <RandomCharacterListItem>
-                        <Span>Born </Span>
-                        <Span>{born}</Span>
-                    </RandomCharacterListItem>
+					<RandomCharacterListItem>
+						<Span>Born </Span>
+						<Span>{born}</Span>
+					</RandomCharacterListItem>
 
-                    <RandomCharacterListItem>
-                        <Span>Died </Span>
-                        <Span>{died}</Span>
-                    </RandomCharacterListItem>
+					<RandomCharacterListItem>
+						<Span>Died </Span>
+						<Span>{died}</Span>
+					</RandomCharacterListItem>
 
-                    <RandomCharacterListItem>
-                        <Span>Culture </Span>
-                        <Span>{culture}</Span>
-                    </RandomCharacterListItem>
-                </RandomCharacterList>
-            </RandomCharacterBlock>
-        </>
-    )
+					<RandomCharacterListItem>
+						<Span>Culture </Span>
+						<Span>{culture}</Span>
+					</RandomCharacterListItem>
+				</RandomCharacterList>
+			</RandomCharacterBlock>
+		</>
+	)
 }
 
 const SpinnerBlock = () => {
-    return (
-        <>
-            <RandomCharacterBlock>
-                <RandomCharacterTitle>Random Character: </RandomCharacterTitle>
+	return (
+		<>
+			<RandomCharacterBlock>
+				<RandomCharacterTitle>Random Character: </RandomCharacterTitle>
 
-                <RandomCharacterList>
-                    <RandomCharacterListItem>
-                        <Span>Gender </Span>
-                    </RandomCharacterListItem>
+				<RandomCharacterList>
+					<RandomCharacterListItem>
+						<Span>Gender </Span>
+					</RandomCharacterListItem>
 
-                    <RandomCharacterListItem>
-                        <Span>Born </Span>
-                    </RandomCharacterListItem>
-                    <RandomCharacterListItem>
-                        <Span>Died </Span>
-                    </RandomCharacterListItem>
+					<RandomCharacterListItem>
+						<Span>Born </Span>
+					</RandomCharacterListItem>
+					<RandomCharacterListItem>
+						<Span>Died </Span>
+					</RandomCharacterListItem>
 
-                    <RandomCharacterListItem>
-                        <Span>Culture </Span>
-                    </RandomCharacterListItem>
-                </RandomCharacterList>
-                <Spinner />
-            </RandomCharacterBlock>
-        </>
-    );
+					<RandomCharacterListItem>
+						<Span>Culture </Span>
+					</RandomCharacterListItem>
+				</RandomCharacterList>
+				<Spinner />
+			</RandomCharacterBlock>
+		</>
+	);
 }
 
 /* ---------------------------- styled-component ---------------------------- */
 
 const RandomCharacterBlock = styled.div`
-    position: relative;
+	position: relative;
 	background-color: #fff;
 	padding: 25px 25px 15px 25px;
 	margin-bottom: 40px;
@@ -156,8 +156,8 @@ const RandomCharacterListItem = styled.li`
 	padding: 0.75rem 1.25rem;
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.125);
-    border-width: 0 0 1px;
-    cursor: pointer;
+	border-width: 0 0 1px;
+	cursor: pointer;
 	&:first-child {
 		border-top-left-radius: inherit;
 		border-top-right-radius: inherit;

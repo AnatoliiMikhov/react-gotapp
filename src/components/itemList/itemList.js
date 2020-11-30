@@ -5,69 +5,69 @@ import ErrorMessage from "../error";
 import styled from "styled-components";
 
 export default class ItemList extends Component {
-    gotService = new gotService();
+	gotService = new gotService();
 
-    state = {
-        characterList: null,
-        error: false,
-    };
+	state = {
+		characterList: null,
+		error: false,
+	};
 
-    componentDidMount() {
-        this.gotService
-            .getAllCharacters()
-            .then((characterList) => {
-                this.setState({
-                    characterList,
-                    error: false,
-                });
-            })
-            .catch(() => {
-                this.onError();
-            });
-    }
+	componentDidMount() {
+		this.gotService
+			.getAllCharacters()
+			.then((characterList) => {
+				this.setState({
+					characterList,
+					error: false,
+				});
+			})
+			.catch(() => {
+				this.onError();
+			});
+	}
 
-    componentDidCatch() {
-        this.setState({
-            charList: null,
-            error: true,
-        });
-    }
+	componentDidCatch() {
+		this.setState({
+			charList: null,
+			error: true,
+		});
+	}
 
-    onError(status) {
-        this.setState({
-            charList: null,
-            error: true,
-        });
-    }
+	onError(status) {
+		this.setState({
+			charList: null,
+			error: true,
+		});
+	}
 
-    renderItems(arr) {
-        return arr.map((item) => {
-            const {id, name} = item;
-            return (
-                <ListItem
-                    key={id}
-                    onClick={() => this.props.onCharSelected(id)}>
-                    {name}
-                </ListItem>
-            );
-        });
-    }
+	renderItems(arr) {
+		return arr.map((item) => {
+			const {id, name} = item;
+			return (
+				<ListItem
+					key={id}
+					onClick={() => this.props.onCharSelected(id)}>
+					{name}
+				</ListItem>
+			);
+		});
+	}
 
-    render() {
-        const {characterList, error} = this.state;
+	render() {
+		const {characterList, error} = this.state;
 
-        if(error){
-            return <ErrorMessage/>
-        }
+		if (error) {
+			return <ErrorMessage />
+		}
 
-        if (!characterList) {
-            return <Spinner />;
-        }
+		if (!characterList) {
+			return <Spinner />;
+		}
 
-        const items = this.renderItems(characterList);
+		const items = this.renderItems(characterList);
 
-        return <List>{items}</List>;
-    }
+		return <List>{items}</List>;
+	}
 }
 
 /* ---------------------------- styled-component ---------------------------- */

@@ -173,7 +173,7 @@ const PersonDetailsListItem = styled.li`
 	}
 	&:last-child {
 		border-bottom-width: 0;
-    }
+		}
 `;
 
 const Span = styled.span`
@@ -184,6 +184,6 @@ const Span = styled.span`
 
 const Error = styled.span`
 	color: #fff;
-    text-align: center;
-    font-size: 26px;
+		text-align: center;
+		font-size: 26px;
 `;

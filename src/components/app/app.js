@@ -35,9 +35,8 @@ export default class App extends Component {
 					<Row>
 						<Col lg={{size: 6, offset: 0}}>
 							{character}
-							<ButtonToggle onClick={this.toggleRandomChar}>
-								Toggle random character
-							</ButtonToggle>
+							<ButtonToggle onClick={this.toggleRandomChar} children="Toggle random character" />
+							{/* <ButtonToggle onClick={this.toggleRandomChar}>Toggle random character</ButtonToggle> */}
 						</Col>
 					</Row>
 					<CharacterPage />

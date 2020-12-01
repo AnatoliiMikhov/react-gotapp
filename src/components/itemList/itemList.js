@@ -44,6 +44,7 @@ export default class ItemList extends Component {
 
 	renderItems(arr) {
 		return arr.map((item) => {
+			// console.log(item);
 			const {id, name} = item;
 			return (
 				<ListItem

@@ -25,16 +25,16 @@ export default class PersonDetails extends Component {
 		}
 	}
 
+	componentDidCatch() {
+		this.setState({
+			error: true,
+		});
+	}
+
 	onCharDetailLoaded = (character) => {
 		this.setState({
 			character,
 			loading: false
-		});
-	}
-
-	componentDidCatch() {
-		this.setState({
-			error: true,
 		});
 	}
 
@@ -48,7 +48,8 @@ export default class PersonDetails extends Component {
 			loading: true
 		});
 
-		this.gotService.getCharacter(characterId)
+		this.gotService
+			.getCharacter(characterId)
 			.then(this.onCharDetailLoaded)
 			.catch(() => this.onError());
 	}
